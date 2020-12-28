@@ -1,0 +1,22 @@
+﻿@model Shop.WebUI.ViewModel.ProductListModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item">Telefon</li>
+            <li class="list-group-item">Telefon</li>
+            <li class="list-group-item">Telefon</li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <partial name="_slider" />
+        @foreach (var item in Model.Products)
+        {
+            @item.Name
+        }
+    </div>
+</div>
