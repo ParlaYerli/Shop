@@ -14,9 +14,11 @@
     </div>
     <div class="col-md-9">
         <partial name="_slider" />
-        @foreach (var item in Model.Products)
-        {
-            @item.Name
-        }
+        <div class="row mt-3">
+            @foreach (var item in Model.Products)
+            {
+                <partial name="_product" for="@item" />
+            }
+        </div>
     </div>
 </div>
