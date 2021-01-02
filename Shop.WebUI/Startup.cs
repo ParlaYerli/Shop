@@ -12,7 +12,6 @@ using Shop.Business.Abstract;
 using Shop.Business.Concrete;
 using Shop.DataAccess.Abstract;
 using Shop.DataAccess.Concrete.EfCore;
-using Shop.WebUI.Middlewares;
 
 namespace Shop.WebUI
 {
@@ -53,7 +52,6 @@ namespace Shop.WebUI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.CustomStaticFiles();
             app.UseRouting();
 
             app.UseAuthorization();
