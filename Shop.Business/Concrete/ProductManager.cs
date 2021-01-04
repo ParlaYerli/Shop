@@ -30,7 +30,7 @@ namespace Shop.Business.Concrete
 
         public List<Product> GetAll()
         {
-            return _productDal.GetAll().ToList(); 
+            return _productDal.GetAll().ToList();
         }
 
         public Product GetById(int id)
@@ -41,6 +41,11 @@ namespace Shop.Business.Concrete
         public List<Product> GetPopularProducts()
         {
             return _productDal.GetPopularProducts().ToList();
+        }
+
+        public Product GetProductDetails(int id)
+        {
+            return _productDal.GetProductDetails(id);
         }
 
         public void Update(Product entity)

@@ -10,6 +10,7 @@ namespace Shop.Business.Abstract
         List<Product> GetAll();
         List<Product> GetPopularProducts();
         Product GetById(int id);
+        Product GetProductDetails(int id);
         void Create(Product entity);
         void Update(Product entity);
         void Delete(Product entity);

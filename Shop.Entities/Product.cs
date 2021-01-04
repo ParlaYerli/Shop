@@ -14,6 +14,7 @@ namespace Shop.Entities
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public string Description { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
     }
 }

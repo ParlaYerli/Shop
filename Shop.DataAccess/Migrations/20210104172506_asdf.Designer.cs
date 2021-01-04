@@ -9,8 +9,8 @@ using Shop.DataAccess.Concrete.EfCore;
 namespace Shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20201228123453_initialdb")]
-    partial class initialdb
+    [Migration("20210104172506_asdf")]
+    partial class asdf
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,9 @@ namespace Shop.DataAccess.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");

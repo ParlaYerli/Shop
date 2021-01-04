@@ -21,22 +21,37 @@ namespace Shop.DataAccess.Concrete.EfCore
                 if (context.Products.Count() == 0)
                 {
                     context.Products.AddRange(Products);
+                    context.AddRange(ProductCategories);
+
                 }
                 context.SaveChanges();
             }
         }
-
+        // idyi eklersek identity_insert off hatası alıyorum. Bu hata otomatik identity olan bir tabloya kendimiz bir id insert etmeye çalıştığımız zaman ortaya cıkan bir hatadır.
         private static Category[] Categories = {
-        new Category() {Id=1, Name = "Telefon" },
-        new Category() {Id=2, Name= "Bilgisayar" }
+        new Category() { Name = "Telefon" },
+        new Category() { Name= "Bilgisayar" },
+        new Category() { Name="Elektronik"}
         };
+
         private static Product[] Products = {
-        new Product() {Id=1, Name = "Samsung S5", Price = 2000, ImageUrl="1.jpg" ,CategoryId=1 },
-        new Product() {Id=2, Name = "Samsung S7", Price = 3000, ImageUrl="2.jpg",CategoryId=1 },
-        new Product() {Id=3, Name = "Samsung S8", Price = 4000, ImageUrl="3.jpg",CategoryId=1 },
-        new Product() {Id=4, Name = "Samsung S9", Price = 5200, ImageUrl="4.jpg",CategoryId=1 },
-        new Product() {Id=5, Name = "IPhone 6", Price = 4200, ImageUrl="5.jpg",CategoryId=1 },
-        new Product() {Id=6, Name = "IPhone 7", Price = 8000, ImageUrl="6.jpg",CategoryId=1 }
+            new Product(){ Name="Samsung S5", Price=2000, ImageUrl="1.jpg", Description="<p>güzel telefon</p>"},
+            new Product(){ Name="Samsung S6", Price=3000, ImageUrl="2.jpg", Description="<p>güzel telefon</p>"},
+            new Product(){ Name="Samsung S7", Price=4000, ImageUrl="3.jpg", Description="<p>güzel telefon</p>"},
+            new Product(){ Name="Samsung S8", Price=5000, ImageUrl="4.jpg", Description="<p>güzel telefon</p>"},
+            new Product(){ Name="Samsung S9", Price=6000, ImageUrl="5.jpg", Description="<p>güzel telefon</p>"},
+            new Product(){ Name="IPhone 6", Price=4000, ImageUrl="6.jpg", Description="<p>güzel telefon</p>"},
+          };
+
+        private static ProductCategory[] ProductCategories =
+        {
+            new ProductCategory() { Product= Products[0],Category= Categories[0]},
+            new ProductCategory() { Product= Products[0],Category= Categories[2]},
+            new ProductCategory() { Product= Products[1],Category= Categories[0]},
+            new ProductCategory() { Product= Products[1],Category= Categories[1]},
+            new ProductCategory() { Product= Products[2],Category= Categories[0]},
+            new ProductCategory() { Product= Products[2],Category= Categories[2]},
+            new ProductCategory() { Product= Products[3],Category= Categories[1]}
         };
     }
 }
