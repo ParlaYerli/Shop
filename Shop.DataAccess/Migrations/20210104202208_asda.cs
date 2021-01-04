@@ -2,7 +2,7 @@
 
 namespace Shop.DataAccess.Migrations
 {
-    public partial class asdf : Migration
+    public partial class asda : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

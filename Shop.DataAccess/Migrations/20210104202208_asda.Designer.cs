@@ -9,8 +9,8 @@ using Shop.DataAccess.Concrete.EfCore;
 namespace Shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210104172506_asdf")]
-    partial class asdf
+    [Migration("20210104202208_asda")]
+    partial class asda
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
