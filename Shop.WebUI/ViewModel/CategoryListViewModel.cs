@@ -9,5 +9,6 @@ namespace Shop.WebUI.ViewModel
     public class CategoryListViewModel
     {
         public List<Category> Categories { get; set; }
+        public string SelectedCategory { get; set; }
     }
 }

@@ -8,6 +8,19 @@ namespace Shop.WebUI.ViewModel
 {
     public class ProductListModel
     {
+        public PageInfo PageInfo { get; set; }
         public List<Product> Products { get; set; }
     }
+    public class PageInfo
+    {
+        public int TotalItems { get; set; }
+        public int ItemsPerPage { get; set; }
+        public int CurrentPage { get; set; }
+        public string CurrentCategory{ get; set; }
+        public  int TotalPage()
+        {
+            return (int)Math.Ceiling((decimal)TotalItems / ItemsPerPage);
+        } 
+    }
+
 }
