@@ -37,15 +37,14 @@ namespace Shop.Business.Concrete
         {
             return _productDal.GetById(id);
         }
-
-        public List<Product> GetPopularProducts()
-        {
-            return _productDal.GetPopularProducts().ToList();
-        }
-
         public Product GetProductDetails(int id)
         {
             return _productDal.GetProductDetails(id);
+        }
+
+        public List<Product> GetProductsByCategory(string category,int page, int pageSize)
+        {
+            return _productDal.GetProductsByCategory(category,page,pageSize);
         }
 
         public void Update(Product entity)

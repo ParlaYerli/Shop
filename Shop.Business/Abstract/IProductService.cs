@@ -8,7 +8,7 @@ namespace Shop.Business.Abstract
     public interface IProductService
     {
         List<Product> GetAll();
-        List<Product> GetPopularProducts();
+        List<Product> GetProductsByCategory(string category,int page,int pageSize);
         Product GetById(int id);
         Product GetProductDetails(int id);
         void Create(Product entity);
