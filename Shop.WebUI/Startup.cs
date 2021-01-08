@@ -28,7 +28,7 @@ namespace Shop.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ShopContext>();
-            services.AddScoped<IProductDal,EfCoreProductDal>();
+            services.AddScoped<IProductDal, EfCoreProductDal>();
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryDal, EfCoreCategoryDal>();
             services.AddScoped<ICategoryService, CategoryManager>();
@@ -59,8 +59,23 @@ namespace Shop.WebUI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    pattern: "products/{category?}",
+                    name: "products",
+                    defaults: new { controller = "Shop", action = "List" });
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    pattern: "admin/products",
+                    name: "adminProducts",
+                    defaults: new { controller = "Admin", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                    pattern: "admin/products/{id?}",
+                    name: "adminProducts",
+                    defaults: new { controller = "Admin", action = "Edit" });
             });
         }
     }

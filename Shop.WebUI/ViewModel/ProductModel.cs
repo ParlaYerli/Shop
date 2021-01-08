@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Shop.Entities
+namespace Shop.WebUI.ViewModel
 {
-    public class Product
+    public class ProductModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,7 +13,5 @@ namespace Shop.Entities
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
         public string Description { get; set; }
-        public Category Category { get; set; }
-        public List<ProductCategory> ProductCategories { get; set; }
     }
 }
