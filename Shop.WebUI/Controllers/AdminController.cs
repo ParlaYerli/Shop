@@ -81,7 +81,7 @@ namespace Shop.WebUI.Controllers
             _productService.Create(entity);
             return Redirect("Index");
         }
-       /* [HttpPost]
+        [HttpPost]
         public IActionResult Delete(int productId)
         {
             var entity = _productService.GetById(productId);
@@ -90,6 +90,6 @@ namespace Shop.WebUI.Controllers
                 _productService.Delete(entity);
             }
             return RedirectToAction("Index");
-        }*/
+        }
     }
 }
