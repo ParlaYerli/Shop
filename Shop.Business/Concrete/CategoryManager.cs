@@ -11,20 +11,22 @@ namespace Shop.Business.Concrete
     public class CategoryManager : ICategoryService
     {
         private readonly ICategoryDal _categoryDal;
-
         public CategoryManager(ICategoryDal categoryDal)
         {
             _categoryDal = categoryDal;
         }
-
+        public Category GetById(int id)
+        {
+            return _categoryDal.GetById(id);
+        }
         public void Create(Category entity)
         {
-            throw new NotImplementedException();
+            _categoryDal.Create(entity);
         }
 
         public void Delete(Category entity)
         {
-            throw new NotImplementedException();
+            _categoryDal.Delete(entity);
         }
 
         public List<Category> GetAll()
@@ -34,7 +36,7 @@ namespace Shop.Business.Concrete
 
         public void Update(Category entity)
         {
-            throw new NotImplementedException();
+            _categoryDal.Update(entity);
         }
     }
 }

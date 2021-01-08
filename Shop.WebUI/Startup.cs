@@ -70,12 +70,12 @@ namespace Shop.WebUI
                 endpoints.MapControllerRoute(
                     pattern: "admin/products",
                     name: "adminProducts",
-                    defaults: new { controller = "Admin", action = "Index" });
+                    defaults: new { controller = "Admin", action = "ProductList" });
 
                 endpoints.MapControllerRoute(
                     pattern: "admin/products/{id?}",
                     name: "adminProducts",
-                    defaults: new { controller = "Admin", action = "Edit" });
+                    defaults: new { controller = "Admin", action = "EditProduct" });
             });
         }
     }
