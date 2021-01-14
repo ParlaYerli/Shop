@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace Shop.WebUI.Models
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
         public string Description { get; set; }
+        public List<Category> SelectedCategories { get; set; }
     }
 }
