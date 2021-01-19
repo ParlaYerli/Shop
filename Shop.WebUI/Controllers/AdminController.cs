@@ -60,28 +60,36 @@ namespace Shop.WebUI.Controllers
             if (ModelState.IsValid)
             {
                 var entity = _productService.GetById(model.Id);
+
                 if (entity == null)
                 {
                     return NotFound();
                 }
+
                 entity.Name = model.Name;
                 entity.Description = model.Description;
-                entity.ImageUrl = model.ImageUrl;
                 entity.Price = model.Price;
-                if (file!=null)
+
+                if (file != null)
                 {
                     entity.ImageUrl = file.FileName;
+
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", file.FileName);
-                    using (var stream = new FileStream(path,FileMode.Create))
+                    using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
                     }
                 }
+
                 _productService.Update(entity, categoryIds);
+
                 return RedirectToAction("ProductList");
             }
+
             ViewBag.Categories = _categoryService.GetAll();
+
             return View(model);
+
         }
 
         [HttpGet]
