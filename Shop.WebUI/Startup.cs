@@ -16,6 +16,7 @@ using Shop.Business.Abstract;
 using Shop.Business.Concrete;
 using Shop.DataAccess.Abstract;
 using Shop.DataAccess.Concrete.EfCore;
+using Shop.WebUI.EmailSettings;
 using Shop.WebUI.Identity;
 
 namespace Shop.WebUI
@@ -52,7 +53,7 @@ namespace Shop.WebUI
                 // options.User.AllowedUserNameCharacters = "";
                 options.User.RequireUniqueEmail = true;
 
-                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             }
             );
@@ -66,7 +67,8 @@ namespace Shop.WebUI
                 options.Cookie = new CookieBuilder
                 {
                     HttpOnly = true,
-                    Name = ".Shop.Cookie"
+                    Name = ".Shop.Cookie",
+                    SameSite = SameSiteMode.Strict
                 };
             });
 
@@ -76,6 +78,7 @@ namespace Shop.WebUI
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryDal, EfCoreCategoryDal>();
             services.AddScoped<ICategoryService, CategoryManager>();
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddControllersWithViews();
         }
 

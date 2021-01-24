@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shop.WebUI.EmailSettings;
 using Shop.WebUI.Identity;
 using Shop.WebUI.Models;
 
 namespace Shop.WebUI.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
@@ -16,11 +18,9 @@ namespace Shop.WebUI.Controllers
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
-
-        [HttpGet]
         public IActionResult Register()
         {
             return View(new RegisterModel());
@@ -45,47 +45,95 @@ namespace Shop.WebUI.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("login", "account");
+                // generate token
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new
+                {
+                    userId = user.Id,
+                    token = code
+                });
+
+                // send email
+
+                return RedirectToAction("Login", "Account");
             }
+
 
             ModelState.AddModelError("", "Bilinmeyen hata oluştu lütfen tekrar deneyiniz.");
             return View(model);
         }
 
-        public IActionResult Login()
+
+        public IActionResult Login(string ReturnUrl = null)
         {
-            return View(new LoginModel());
+            return View(new LoginModel()
+            {
+                ReturnUrl = ReturnUrl
+            });
         }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
-          
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Bu kullanıcı ile daha önce hesap oluşturulmamış.");
+                ModelState.AddModelError("", "Bu email ile daha önce hesap oluşturulmamış.");
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, true, false);
+            if (!await _userManager.IsEmailConfirmedAsync(user))
+            {
+                ModelState.AddModelError("", "Lütfen hesabınızı email ile onaylayınız.");
+                return View(model);
+            }
+
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
 
             if (result.Succeeded)
             {
-                return RedirectToAction("productlist", "admin");
+                return Redirect(model.ReturnUrl ?? "~/");
             }
 
-            ModelState.AddModelError("", "Kullanıcı adı ve ya parola yanlış");
+            ModelState.AddModelError("", "Email veya parola yanlış");
             return View(model);
         }
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return Redirect("~/");
         }
+
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                TempData["message"] = "Geçersiz token.";
+                return View();
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+                if (result.Succeeded)
+                {
+                    TempData["message"] = "Hesabınız onaylandı";
+                    return View();
+                }
+            }
+
+            TempData["message"] = "Hesabınız onaylanmadı.";
+            return View();
+        }
+
+
     }
 }
