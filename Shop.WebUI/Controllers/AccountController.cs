@@ -82,5 +82,10 @@ namespace Shop.WebUI.Controllers
             ModelState.AddModelError("", "Kullanıcı adı ve ya parola yanlış");
             return View(model);
         }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect("~/");
+        }
     }
 }
